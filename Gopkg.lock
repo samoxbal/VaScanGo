@@ -66,6 +66,14 @@
   revision = "24195e6d38b06020d7a92c7b11960cf2e7cad2f2"
 
 [[projects]]
+  digest = "1:cc2be18e88df2185c5d16c89793016b54818ba6a88cd2c41c57a5b6b845c7069"
+  name = "github.com/go-bongo/bongo"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "58e3a1fbb5ea15dde8675b60becb2a9950e70164"
+  version = "v0.10.4"
+
+[[projects]]
   digest = "1:77395dd3847dac9c45118c668f5dab85aedf0163dc3b38aea6578c5cf0d502f9"
   name = "github.com/hashicorp/go-version"
   packages = ["."]
@@ -208,6 +216,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:5911819b63f87b31ce5fba381922bb2849897d214d2b9b4af4ffc04e2dc8716a"
+  name = "github.com/maxwellhealth/go-dotaccess"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ae070a2d2a38fd7233e255ded21fb26fe36b4796"
+
+[[projects]]
+  branch = "master"
   digest = "1:2b32af4d2a529083275afc192d1067d8126b578c7a9613b26600e4df9c735155"
   name = "github.com/mgutz/ansi"
   packages = ["."]
@@ -237,6 +253,14 @@
   pruneopts = "UT"
   revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
   version = "1.0.1"
+
+[[projects]]
+  digest = "1:1919e36a53e2297eca9d3516ca358dec92257fe0de3361351e09400c91d65d5e"
+  name = "github.com/oleiade/reflections"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2b6ec3da648e3e834dc41bad8d9ed7f2dc6a9496"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -311,6 +335,20 @@
 
 [[projects]]
   branch = "v2"
+  digest = "1:988de7520a09024d5d94cd99bd545afbf194893994ec759b1cda0a0bbb6adb80"
+  name = "gopkg.in/mgo.v2"
+  packages = [
+    ".",
+    "bson",
+    "internal/json",
+    "internal/sasl",
+    "internal/scram",
+  ]
+  pruneopts = "UT"
+  revision = "9856a29383ce1c59f308dd1cf0363a79b5bef6b5"
+
+[[projects]]
+  branch = "v2"
   digest = "1:82d5be405790a16f2c58b119b1a63efebdf701866792c7e9c6cfb695cdb79be5"
   name = "gopkg.in/russross/blackfriday.v2"
   packages = ["."]
@@ -328,6 +366,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/kataras/iris"]
+  input-imports = [
+    "github.com/go-bongo/bongo",
+    "github.com/kataras/iris",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
