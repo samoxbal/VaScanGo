@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 
 	}
-	app.Post("/graphql", controllers.GraphqlController(connection))
+	app.Post("/schema", controllers.GraphQlController(connection))
 	app.Run(
 		iris.Addr(":8080"),
 		iris.WithConfiguration(iris.TOML("./config/iris.toml")),

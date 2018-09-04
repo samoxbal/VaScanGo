@@ -74,6 +74,26 @@
   version = "v0.10.4"
 
 [[projects]]
+  digest = "1:6b588a3e17f529ec6239042690ce79b07d752624779f953d46e49335108f4f02"
+  name = "github.com/graphql-go/graphql"
+  packages = [
+    ".",
+    "gqlerrors",
+    "language/ast",
+    "language/kinds",
+    "language/lexer",
+    "language/location",
+    "language/parser",
+    "language/printer",
+    "language/source",
+    "language/typeInfo",
+    "language/visitor",
+  ]
+  pruneopts = "UT"
+  revision = "5c1be0872a56fba73b279434ea95dfda735abedd"
+  version = "v0.7.6"
+
+[[projects]]
   digest = "1:77395dd3847dac9c45118c668f5dab85aedf0163dc3b38aea6578c5cf0d502f9"
   name = "github.com/hashicorp/go-version"
   packages = ["."]
@@ -368,6 +388,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/go-bongo/bongo",
+    "github.com/graphql-go/graphql",
     "github.com/kataras/iris",
   ]
   solver-name = "gps-cdcl"
