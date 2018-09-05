@@ -2,6 +2,10 @@ package models
 
 import "github.com/go-bongo/bongo"
 
+type GraphQlRequest struct {
+	Query string `json:"query"`
+}
+
 type Experiment struct {
 	bongo.DocumentBase `bson:",inline"`
 	Id string `json:"id"`

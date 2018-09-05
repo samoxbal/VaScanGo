@@ -5,24 +5,27 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/kataras/iris"
 	"VaScanGo/schema"
-	"io/ioutil"
+	"VaScanGo/models"
 )
 
 func GraphQlController(connection *bongo.Connection) iris.Handler {
 	return func(ctx iris.Context) {
+		var req models.GraphQlRequest
+		if err := ctx.ReadJSON(&req); err != nil {
+			ctx.Application().Logger().Infof("Error read request: %s", err)
+		}
 		rootObject := map[string]interface{}{
 			"connection": connection,
+			"ctx": ctx,
 		}
 		rootSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
 			Query: schema.Query,
 		})
-		req := ctx.Request()
-		body, _ := ioutil.ReadAll(req.Body)
-		defer req.Body.Close()
+		ctx.Application().Logger().Info(req.Query)
 		result := graphql.Do(graphql.Params{
 			RootObject: rootObject,
 			Schema: rootSchema,
-			RequestString: string(body[:]),
+			RequestString: req.Query,
 		})
 		ctx.JSON(result)
 	}
