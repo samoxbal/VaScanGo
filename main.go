@@ -2,8 +2,10 @@ package main
 
 import (
 	"VaScanGo/controllers"
+	"fmt"
 	"github.com/go-bongo/bongo"
 	"github.com/kataras/iris"
+	"gopkg.in/go-playground/validator.v9"
 	"os"
 )
 
@@ -15,10 +17,13 @@ func main() {
 	}
 	connection, err := bongo.Connect(bongoConfig)
 	if err != nil {
-
+		fmt.Printf("Error MongodbConnection: %s", err)
 	}
+	var validate *validator.Validate
+	validate = validator.New()
 	app.Logger().SetOutput(os.Stdout)
-	app.Post("/schema", controllers.GraphQlController(connection))
+	app.Post("/graphql", controllers.GraphQlController(connection, validate))
+	app.Post("/token", controllers.TokenController(connection, validate))
 	app.Run(
 		iris.Addr(":8080"),
 		iris.WithConfiguration(iris.TOML("./config/iris.toml")),
