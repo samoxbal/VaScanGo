@@ -19,3 +19,20 @@ func ExperimentsListResolver(params graphql.ResolveParams) (interface{}, error) 
 	}
 	return experiments, nil
 }
+
+func CreateExperimentResolver(params graphql.ResolveParams) (interface{}, error) {
+	userId, _ := params.Args["user"].(string)
+	name, _ := params.Args["name"].(string)
+	description, _ := params.Args["description"].(string)
+	startDate, _ := params.Args["startDate"].(string)
+	endDate, _ := params.Args["endDate"].(string)
+	experiment := models.Experiment{
+		User: userId,
+		Name: name,
+		Description: description,
+		StartDate: startDate,
+		EndDate: endDate,
+	}
+
+	return nil, nil
+}

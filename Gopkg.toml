@@ -48,3 +48,7 @@
 [[constraint]]
   name = "github.com/dgrijalva/jwt-go"
   version = "3.2.0"
+
+[[constraint]]
+  name = "github.com/looplab/eventhorizon"
+  version = "0.4.0"

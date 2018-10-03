@@ -1,12 +1,12 @@
 package controllers
 
 import (
+	"VaScanGo/models"
+	"VaScanGo/schema"
 	"VaScanGo/utils"
 	"github.com/go-bongo/bongo"
 	"github.com/graphql-go/graphql"
 	"github.com/kataras/iris"
-	"VaScanGo/schema"
-	"VaScanGo/models"
 	"gopkg.in/go-playground/validator.v9"
 )
 
@@ -30,6 +30,7 @@ func GraphQlController(connection *bongo.Connection, validate *validator.Validat
 		}
 		rootSchema, _ := graphql.NewSchema(graphql.SchemaConfig{
 			Query: schema.Query,
+			Mutation: schema.Mutation,
 		})
 		ctx.Application().Logger().Info(req.Query)
 		result := graphql.Do(graphql.Params{
