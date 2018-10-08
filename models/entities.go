@@ -9,6 +9,10 @@ type GraphQlRequest struct {
 	Query string `json:"query"`
 }
 
+type GraphQlMutation struct {
+	Mutation string `json:"mutation"`
+}
+
 type LoginRequest struct {
 	User 		string `json:"user"`
 	Password 	string `json:"password"`
@@ -27,36 +31,10 @@ type LoginClaims struct {
 }
 
 type Experiment struct {
-	ID 					string `json:"id"`
-	User 				string `json:"user"`
-	Name 				string `json:"name"`
-	Description 		string `json:"description"`
-	StartDate 			string `json:"startDate"`
-	EndDate 			string `json:"endDate"`
-	bongo.DocumentBase 		   `bson:",inline"`
-}
-
-type Event struct {
-	ID            string      `json:"id"`
-	AggregateID   string      `json:"aggregate_id"`
-	Type          string      `json:"type"`
-	Data          interface{} `json:"data"`
-	bongo.DocumentBase 		  `bson:",inline"`
-}
-
-type BaseAggregate struct {
-	ID      string
-	Type    string
-	Changes []Event
-}
-
-type AggregateHandler interface {
-	GetID() string
-	ApplyChange(event Event)
-	ApplyChangeHelper(aggregate AggregateHandler, event Event)
-}
-
-type ExperimentAggregate struct {
-	BaseAggregate
-	User string
+	ID 					string 	`json:"id"bson:"_id"`
+	User 				string  `json:"user"bson:"user"`
+	Name 				string  `json:"name"bson:"name"`
+	Description 		string  `json:"description"bson:"description"`
+	StartDate 			string  `json:"startDate"bson:"startDate"`
+	EndDate 			string  `json:"endDate"bson:"endDate"`
 }

@@ -74,20 +74,6 @@
   revision = "24195e6d38b06020d7a92c7b11960cf2e7cad2f2"
 
 [[projects]]
-  branch = "master"
-  digest = "1:e0361634f0b5e1fd3227eaec90a86bc8595cb2526e71e41bcd72b6e474e198ca"
-  name = "github.com/globalsign/mgo"
-  packages = [
-    ".",
-    "bson",
-    "internal/json",
-    "internal/sasl",
-    "internal/scram",
-  ]
-  pruneopts = "UT"
-  revision = "1ca0a4f7cbcbe61c005d1bd43fdd8bb8b71df6bc"
-
-[[projects]]
   digest = "1:cc2be18e88df2185c5d16c89793016b54818ba6a88cd2c41c57a5b6b845c7069"
   name = "github.com/go-bongo/bongo"
   packages = ["."]
@@ -260,22 +246,6 @@
   version = "v1.1"
 
 [[projects]]
-  digest = "1:8f7d561e61837694bae7c2c5322ee4e8b8cb22f9a7dc9145671d6e8f436e2442"
-  name = "github.com/looplab/eventhorizon"
-  packages = [
-    ".",
-    "aggregatestore/events",
-    "commandhandler/aggregate",
-    "eventbus/local",
-    "eventhandler/projector",
-    "eventstore/mongodb",
-    "repo/mongodb",
-  ]
-  pruneopts = "UT"
-  revision = "0e60cf6681c6f6dd6e555781fab252fb1b1fc9e2"
-  version = "v0.4.0"
-
-[[projects]]
   digest = "1:c658e84ad3916da105a761660dcaeb01e63416c8ec7bc62256a9b411a05fcd67"
   name = "github.com/mattn/go-colorable"
   packages = ["."]
@@ -346,6 +316,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "abc90934186a77966e2beeac62ed966aac0561d5"
+
+[[projects]]
+  digest = "1:274f67cb6fed9588ea2521ecdac05a6d62a8c51c074c1fccc6a49a40ba80e925"
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
 
 [[projects]]
   branch = "master"
@@ -456,13 +434,7 @@
     "github.com/go-bongo/bongo",
     "github.com/graphql-go/graphql",
     "github.com/kataras/iris",
-    "github.com/looplab/eventhorizon",
-    "github.com/looplab/eventhorizon/aggregatestore/events",
-    "github.com/looplab/eventhorizon/commandhandler/aggregate",
-    "github.com/looplab/eventhorizon/eventbus/local",
-    "github.com/looplab/eventhorizon/eventhandler/projector",
-    "github.com/looplab/eventhorizon/eventstore/mongodb",
-    "github.com/looplab/eventhorizon/repo/mongodb",
+    "github.com/satori/go.uuid",
     "gopkg.in/go-playground/validator.v9",
     "gopkg.in/mgo.v2/bson",
   ]

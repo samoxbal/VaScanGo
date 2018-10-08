@@ -26,13 +26,5 @@ func CreateExperimentResolver(params graphql.ResolveParams) (interface{}, error)
 	description, _ := params.Args["description"].(string)
 	startDate, _ := params.Args["startDate"].(string)
 	endDate, _ := params.Args["endDate"].(string)
-	experiment := models.Experiment{
-		User: userId,
-		Name: name,
-		Description: description,
-		StartDate: startDate,
-		EndDate: endDate,
-	}
-
 	return nil, nil
 }

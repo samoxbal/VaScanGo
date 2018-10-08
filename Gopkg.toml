@@ -50,5 +50,5 @@
   version = "3.2.0"
 
 [[constraint]]
-  name = "github.com/looplab/eventhorizon"
-  version = "0.4.0"
+  name = "github.com/satori/go.uuid"
+  version = "1.2.0"
