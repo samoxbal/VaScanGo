@@ -1,16 +1,16 @@
 package controllers
 
 import (
+	"VaScanGo/eventbus"
 	"VaScanGo/models"
 	"VaScanGo/schema"
 	"VaScanGo/utils"
-	"github.com/go-bongo/bongo"
 	"github.com/graphql-go/graphql"
 	"github.com/kataras/iris"
 	"gopkg.in/go-playground/validator.v9"
 )
 
-func GraphQlController(connection *bongo.Connection, validate *validator.Validate) iris.Handler {
+func GraphQlController(eventStore *eventbus.EventStore, validate *validator.Validate) iris.Handler {
 	return func(ctx iris.Context) {
 		var req models.GraphQlRequest
 		validate.RegisterStructValidation(utils.ValidateQueryStruct)
@@ -25,7 +25,7 @@ func GraphQlController(connection *bongo.Connection, validate *validator.Validat
 			return
 		}
 		rootObject := map[string]interface{}{
-			"connection": connection,
+			"eventStore": eventStore,
 			"ctx": ctx,
 		}
 		rootSchema, _ := graphql.NewSchema(graphql.SchemaConfig{

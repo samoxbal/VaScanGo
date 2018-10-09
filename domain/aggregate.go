@@ -1,11 +1,16 @@
 package domain
 
 import (
+	"VaScanGo/eventbus"
 	"fmt"
 	"github.com/satori/go.uuid"
 )
 
 const ExperimentAggregateType = "Experiment"
+
+type Aggregate interface {
+	StoreEvent(event Event, store *eventbus.EventStore) error
+}
 
 type BaseAggregate struct {
 	ID 		string
@@ -13,25 +18,24 @@ type BaseAggregate struct {
 	Events  []Event
 }
 
-func (ba *BaseAggregate) StoreEvent(event Event) {
-	ba.Events = append(ba.Events, event)
+func (ba *BaseAggregate) StoreEvent(event Event, store *eventbus.EventStore) error {
+	err := store.Save(event)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 type ExperimentAggregate struct {
 	BaseAggregate
-	userID  		string
-	name 			string
-	description 	string
-	startDate		string
-	endDate			string
 }
 
-func (ea *ExperimentAggregate) HandleCommand(cmd Command) error {
+func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventStore) error {
 	switch cmd := cmd.(type) {
 	case *CreateExperimentCommand:
 		ea.StoreEvent(Event{
 			uuid.NewV4().String(),
-			CreateExperimentCommandType,
+			CreateExperimentEvent,
 			ea.Type,
 			ea.ID,
 			CreateExperimentEventData{
@@ -41,7 +45,7 @@ func (ea *ExperimentAggregate) HandleCommand(cmd Command) error {
 				cmd.StartDate,
 				cmd.EndDate,
 			},
-		})
+		}, store)
 		return nil
 	}
 	return fmt.Errorf("don't find command")

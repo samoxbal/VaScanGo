@@ -1,7 +1,7 @@
 package domain
 
 const (
-	CreateExperimentEvent = "CreateExperiment"
+	CreateExperimentEvent = "CreateExperimentEvent"
 )
 
 type Event struct {

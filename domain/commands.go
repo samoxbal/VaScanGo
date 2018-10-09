@@ -1,19 +1,17 @@
 package domain
 
 const (
-	CreateExperimentCommandType = "CreateExperiment"
+	CreateExperimentCommandType = "CreateExperimentCommand"
 )
 
 type Command interface {
 	GetType() string
-	GetAggregateType() string
 	GetAggregateID() string
 }
 
 type BaseCommand struct {
 	Type 			string
 	AggregateID   	string
-	AggregateType 	string
 }
 
 type CreateExperimentCommand struct {
@@ -26,5 +24,4 @@ type CreateExperimentCommand struct {
 }
 
 func (c *BaseCommand) GetType() string { return c.Type }
-func (c *BaseCommand) GetAggregateType() string { return c.AggregateType }
 func (c *BaseCommand) GetAggregateID() string { return c.AggregateID }

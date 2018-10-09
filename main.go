@@ -17,15 +17,16 @@ func main() {
 		Database:         "VaScan",
 	}
 	connection, err := bongo.Connect(bongoConfig)
-	cmdRegistry := eventbus.NewCommandHandlerRegistry()
-
+	eventStore := &eventbus.EventStore{
+		connection,
+	}
 	if err != nil {
 		fmt.Printf("Error MongodbConnection: %s", err)
 	}
 	var validate *validator.Validate
 	validate = validator.New()
 	app.Logger().SetOutput(os.Stdout)
-	app.Post("/graphql", controllers.GraphQlController(connection, validate))
+	app.Post("/graphql", controllers.GraphQlController(eventStore, validate))
 	app.Post("/token", controllers.TokenController(connection, validate))
 	app.Run(
 		iris.Addr(":8080"),

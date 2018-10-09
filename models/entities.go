@@ -31,7 +31,9 @@ type LoginClaims struct {
 }
 
 type Experiment struct {
+	bongo.DocumentBase 		    `bson:",inline"`
 	ID 					string 	`json:"id"bson:"_id"`
+	AggregateID			string  `json:"aggregateId"bson:"aggregateId"`
 	User 				string  `json:"user"bson:"user"`
 	Name 				string  `json:"name"bson:"name"`
 	Description 		string  `json:"description"bson:"description"`
