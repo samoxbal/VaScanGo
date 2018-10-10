@@ -3,13 +3,14 @@ package domain
 import (
 	"VaScanGo/eventbus"
 	"fmt"
+	"github.com/go-bongo/bongo"
 	"github.com/satori/go.uuid"
 )
 
 const ExperimentAggregateType = "Experiment"
 
 type Aggregate interface {
-	StoreEvent(event Event, store *eventbus.EventStore) error
+	StoreEvent(event Event, store *eventbus.EventStore, version int) error
 }
 
 type BaseAggregate struct {
@@ -18,8 +19,15 @@ type BaseAggregate struct {
 	Events  []Event
 }
 
-func (ba *BaseAggregate) StoreEvent(event Event, store *eventbus.EventStore) error {
-	err := store.Save(event)
+type AggregateRecord struct {
+	bongo.DocumentBase	`bson:",inline"`
+	AggregateID 		string
+	AggregateType		string
+	Events 				[]Event
+}
+
+func (ba *BaseAggregate) StoreEvent(event Event, store *eventbus.EventStore, version int) error {
+	err := store.Save(event, version)
 	if err != nil {
 		return err
 	}
@@ -45,7 +53,7 @@ func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventS
 				cmd.StartDate,
 				cmd.EndDate,
 			},
-		}, store)
+		}, store, 0)
 		return nil
 	}
 	return fmt.Errorf("don't find command")
