@@ -10,7 +10,7 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 )
 
-func GraphQlController(eventStore *eventbus.EventStore, validate *validator.Validate) iris.Handler {
+func GraphQlController(eventStore *eventbus.EventStore, eventConsumer *eventbus.EventConsumer, validate *validator.Validate) iris.Handler {
 	return func(ctx iris.Context) {
 		var req models.GraphQlRequest
 		validate.RegisterStructValidation(utils.ValidateQueryStruct)
@@ -26,6 +26,7 @@ func GraphQlController(eventStore *eventbus.EventStore, validate *validator.Vali
 		}
 		rootObject := map[string]interface{}{
 			"eventStore": eventStore,
+			"eventConsumer": eventConsumer,
 			"ctx": ctx,
 		}
 		rootSchema, _ := graphql.NewSchema(graphql.SchemaConfig{

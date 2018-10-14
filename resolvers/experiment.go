@@ -26,6 +26,8 @@ func ExperimentsListResolver(params graphql.ResolveParams) (interface{}, error) 
 func CreateExperimentResolver(params graphql.ResolveParams) (interface{}, error) {
 	rootValue := params.Info.RootValue.(map[string]interface{})
 	eventStore := rootValue["eventStore"].(*eventbus.EventStore)
+	eventConsumer := rootValue["eventConsumer"].(*eventbus.EventConsumer)
+	eventHandler := eventConsumer.EventMap[domain.CreateExperimentEvent]
 
 	userId, _ := params.Args["user"].(string)
 	name, _ := params.Args["name"].(string)
@@ -44,6 +46,6 @@ func CreateExperimentResolver(params graphql.ResolveParams) (interface{}, error)
 	experimentAggregate := &domain.ExperimentAggregate{}
 	experimentAggregate.ID = uuid.NewV4().String()
 	experimentAggregate.Type = domain.ExperimentAggregateType
-	experimentAggregate.HandleCommand(createExperimentCommand, eventStore)
+	experimentAggregate.HandleCommand(createExperimentCommand, eventStore, eventHandler)
 	return nil, nil
 }

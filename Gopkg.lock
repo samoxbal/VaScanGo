@@ -302,6 +302,26 @@
   version = "1.0.1"
 
 [[projects]]
+  digest = "1:4ce94f3d2074662c04677db471456feb56078244ebcfe3789e6e95901c085bc5"
+  name = "github.com/nats-io/go-nats"
+  packages = [
+    ".",
+    "encoders/builtin",
+    "util",
+  ]
+  pruneopts = "UT"
+  revision = "fb0396ee0bdb8018b0fef30d6d1de798ce99cd05"
+  version = "v1.6.0"
+
+[[projects]]
+  digest = "1:c3cd663f2f30b92536b9f290ac85c6310dae36a14cb8961553ae9ccf0d85ae41"
+  name = "github.com/nats-io/nuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "289cccf02c178dc782430d534e3c1f5b72af807f"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:1919e36a53e2297eca9d3516ca358dec92257fe0de3361351e09400c91d65d5e"
   name = "github.com/oleiade/reflections"
   packages = ["."]
@@ -434,6 +454,7 @@
     "github.com/go-bongo/bongo",
     "github.com/graphql-go/graphql",
     "github.com/kataras/iris",
+    "github.com/nats-io/go-nats",
     "github.com/satori/go.uuid",
     "gopkg.in/go-playground/validator.v9",
     "gopkg.in/mgo.v2/bson",

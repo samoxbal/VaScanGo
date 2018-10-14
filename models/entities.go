@@ -7,9 +7,6 @@ import (
 
 type GraphQlRequest struct {
 	Query string `json:"query"`
-}
-
-type GraphQlMutation struct {
 	Mutation string `json:"mutation"`
 }
 
@@ -39,4 +36,8 @@ type Experiment struct {
 	Description 		string  `json:"description"bson:"description"`
 	StartDate 			string  `json:"startDate"bson:"startDate"`
 	EndDate 			string  `json:"endDate"bson:"endDate"`
+}
+
+func (e *Experiment) GetModelID() string {
+	return e.ID
 }

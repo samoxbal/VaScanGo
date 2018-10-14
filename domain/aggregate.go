@@ -38,10 +38,10 @@ type ExperimentAggregate struct {
 	BaseAggregate
 }
 
-func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventStore) error {
+func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventStore, handler EventHandle) error {
 	switch cmd := cmd.(type) {
 	case *CreateExperimentCommand:
-		ea.StoreEvent(Event{
+		event := Event{
 			uuid.NewV4().String(),
 			CreateExperimentEvent,
 			ea.Type,
@@ -53,7 +53,9 @@ func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventS
 				cmd.StartDate,
 				cmd.EndDate,
 			},
-		}, store, 0)
+		}
+		ea.StoreEvent(event, store, 0)
+		handler.HandleEvent(event)
 		return nil
 	}
 	return fmt.Errorf("don't find command")
