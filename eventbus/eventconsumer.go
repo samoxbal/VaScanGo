@@ -1,15 +1,20 @@
 package eventbus
 
 import (
-	"VaScanGo/domain"
+	"VaScanGo/models"
 	"github.com/nats-io/go-nats"
 )
 
-type EventConsumer struct {
-	EventMap map[string]domain.EventHandle
+type EventHandle interface {
+	HandleEvent(event models.Event)
+	ConsumeEvent(event models.Event)
 }
 
-func (ec *EventConsumer) RegisterHandler(eventType string, handler domain.EventHandle) {
+type EventConsumer struct {
+	EventMap map[string]EventHandle
+}
+
+func (ec *EventConsumer) RegisterHandler(eventType string, handler EventHandle) {
 	ec.EventMap[eventType] = handler
 }
 
@@ -22,12 +27,12 @@ func (ec *EventConsumer) Start() {
 	}
 }
 
-func (ec *EventConsumer) GetHandler(eventType string) domain.EventHandle {
+func (ec *EventConsumer) GetHandler(eventType string) EventHandle {
 	return ec.EventMap[eventType]
 }
 
 func MakeEventConsumer() *EventConsumer {
 	return &EventConsumer{
-		EventMap: make(map[string]domain.EventHandle),
+		EventMap: make(map[string]EventHandle),
 	}
 }

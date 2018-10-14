@@ -1,37 +1,27 @@
 package domain
 
-import "github.com/nats-io/go-nats"
+import (
+	"VaScanGo/models"
+	"github.com/nats-io/go-nats"
+)
 
 const (
 	CreateExperimentEvent = "CreateExperimentEvent"
 )
-
-type Event struct {
-	ID 				string
-	Type 			string
-	AggregateType 	string
-	AggregateID		string
-	Data 			interface{}
-}
-
-type EventHandle interface {
-	HandleEvent(event Event)
-	ConsumeEvent(event Event)
-}
 
 type EventHandler struct {
 	Projector Projector
 	ReadModel ReadModel
 }
 
-func (e *EventHandler) HandleEvent(event Event) {
+func (e *EventHandler) HandleEvent(event models.Event) {
 	natsConn, _ := nats.Connect(nats.DefaultURL)
 	connect, _ := nats.NewEncodedConn(natsConn, nats.JSON_ENCODER)
 	defer connect.Close()
 	connect.Publish(event.Type, event)
 }
 
-func (e *EventHandler) ConsumeEvent(event Event) {
+func (e *EventHandler) ConsumeEvent(event models.Event) {
 	e.Projector.Project(event, e.ReadModel)
 }
 

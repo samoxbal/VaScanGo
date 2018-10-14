@@ -10,14 +10,14 @@ type ReadModel interface {
 }
 
 type Projector interface {
-	Project(event Event, readModel ReadModel) error
+	Project(event models.Event, readModel ReadModel) error
 }
 
 type ExperimentProjector struct {
 	Connection *bongo.Connection
 }
 
-func (ep *ExperimentProjector) Project(event Event, readModel ReadModel) error {
+func (ep *ExperimentProjector) Project(event models.Event, readModel ReadModel) error {
 	experiment := readModel.(*models.Experiment)
 	eventData := event.Data.(CreateExperimentEventData)
 

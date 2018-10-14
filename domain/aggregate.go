@@ -2,31 +2,24 @@ package domain
 
 import (
 	"VaScanGo/eventbus"
+	"VaScanGo/models"
 	"fmt"
-	"github.com/go-bongo/bongo"
 	"github.com/satori/go.uuid"
 )
 
 const ExperimentAggregateType = "Experiment"
 
 type Aggregate interface {
-	StoreEvent(event Event, store *eventbus.EventStore, version int) error
+	StoreEvent(event models.Event, store *eventbus.EventStore, version int) error
 }
 
 type BaseAggregate struct {
 	ID 		string
 	Type 	string
-	Events  []Event
+	Events  []models.Event
 }
 
-type AggregateRecord struct {
-	bongo.DocumentBase	`bson:",inline"`
-	AggregateID 		string
-	AggregateType		string
-	Events 				[]Event
-}
-
-func (ba *BaseAggregate) StoreEvent(event Event, store *eventbus.EventStore, version int) error {
+func (ba *BaseAggregate) StoreEvent(event models.Event, store *eventbus.EventStore, version int) error {
 	err := store.Save(event, version)
 	if err != nil {
 		return err
@@ -38,10 +31,10 @@ type ExperimentAggregate struct {
 	BaseAggregate
 }
 
-func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventStore, handler EventHandle) error {
+func (ea *ExperimentAggregate) HandleCommand(cmd Command, store *eventbus.EventStore, handler eventbus.EventHandle) error {
 	switch cmd := cmd.(type) {
 	case *CreateExperimentCommand:
-		event := Event{
+		event := models.Event{
 			uuid.NewV4().String(),
 			CreateExperimentEvent,
 			ea.Type,

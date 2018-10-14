@@ -10,8 +10,10 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func TokenController(connection *bongo.Connection, validate *validator.Validate) iris.Handler {
+func TokenController(connection *bongo.Connection) iris.Handler {
 	return func(ctx iris.Context) {
+		var validate *validator.Validate
+		validate = validator.New()
 		var req models.LoginRequest
 		validate.RegisterStructValidation(utils.ValidateLoginStruct)
 		if err := ctx.ReadJSON(&req); err != nil {
@@ -34,7 +36,7 @@ func TokenController(connection *bongo.Connection, validate *validator.Validate)
 			return
 		}
 		loginClaims := &models.LoginClaims{
-			UserId: user.Id,
+			UserID: user.ID,
 		}
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, loginClaims)
 		tokenString, tokenErr := token.SignedString([]byte("secret"))

@@ -5,13 +5,16 @@ import (
 	"VaScanGo/models"
 	"VaScanGo/schema"
 	"VaScanGo/utils"
+	"github.com/go-bongo/bongo"
 	"github.com/graphql-go/graphql"
 	"github.com/kataras/iris"
 	"gopkg.in/go-playground/validator.v9"
 )
 
-func GraphQlController(eventStore *eventbus.EventStore, eventConsumer *eventbus.EventConsumer, validate *validator.Validate) iris.Handler {
+func GraphQlController(eventStore *eventbus.EventStore, eventConsumer *eventbus.EventConsumer, connection *bongo.Connection) iris.Handler {
 	return func(ctx iris.Context) {
+		var validate *validator.Validate
+		validate = validator.New()
 		var req models.GraphQlRequest
 		validate.RegisterStructValidation(utils.ValidateQueryStruct)
 		if err := ctx.ReadJSON(&req); err != nil {
@@ -25,6 +28,7 @@ func GraphQlController(eventStore *eventbus.EventStore, eventConsumer *eventbus.
 			return
 		}
 		rootObject := map[string]interface{}{
+			"connection": connection,
 			"eventStore": eventStore,
 			"eventConsumer": eventConsumer,
 			"ctx": ctx,

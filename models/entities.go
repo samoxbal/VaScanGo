@@ -7,7 +7,6 @@ import (
 
 type GraphQlRequest struct {
 	Query string `json:"query"`
-	Mutation string `json:"mutation"`
 }
 
 type LoginRequest struct {
@@ -25,6 +24,21 @@ type User struct {
 type LoginClaims struct {
 	UserID string `json:"user"`
 	jwt.StandardClaims
+}
+
+type Event struct {
+	ID 				string
+	Type 			string
+	AggregateType 	string
+	AggregateID		string
+	Data 			interface{}
+}
+
+type AggregateRecord struct {
+	bongo.DocumentBase	`bson:",inline"`
+	AggregateID 		string
+	AggregateType		string
+	Events 				[]Event
 }
 
 type Experiment struct {
